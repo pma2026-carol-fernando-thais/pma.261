@@ -1,0 +1,6 @@
+[submodule "api/account"]
+	path = api/account
+	url = https://github.com/repo-classes/pma.261.account.git
+[submodule "api/account-service"]
+	path = api/account-service
+	url = https://github.com/repo-classes/pma.261.account-service.git
