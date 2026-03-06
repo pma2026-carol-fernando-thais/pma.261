@@ -5,6 +5,7 @@ services:
 
   db:
     image: postgres:17
+    hostname: db
     ports:
       - 5432:5432
     volumes:
@@ -18,6 +19,7 @@ services:
     build:
       context: ./account-service
       dockerfile: Dockerfile
+    hostname: account
     ports:
       - 8080:8080
     environment:

@@ -1,0 +1,11 @@
+name: store-site
+
+services:
+
+  site:
+    image: nginx:alpine
+    hostname: site
+    ports:
+      - 80:80
+    volumes:
+      - ./site/app:/usr/share/nginx/html:ro
