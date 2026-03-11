@@ -20,13 +20,21 @@ services:
       context: ./account-service
       dockerfile: Dockerfile
     hostname: account
-    ports:
-      - 8080:8080
     environment:
       DATABASE_HOST: db
       DATABASE_PORT: 5432
       DATABASE_DB: ${DB_NAME:-store}
       DATABASE_USERNAME: ${DB_USER:-store}
       DATABASE_PASSWORD: ${DB_PASSWORD:-devpass}
+    deploy:
+      replicas: 2
     depends_on:
       - db
+
+  gateway:
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    hostname: gateway
+    ports:
+      - 8080:8080
