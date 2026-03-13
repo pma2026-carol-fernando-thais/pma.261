@@ -27,9 +27,19 @@ services:
       DATABASE_USERNAME: ${DB_USER:-store}
       DATABASE_PASSWORD: ${DB_PASSWORD:-devpass}
     deploy:
-      replicas: 2
+      replicas: 1
     depends_on:
       - db
+
+  auth:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    hostname: auth
+    deploy:
+      replicas: 1
+    depends_on:
+      - account
 
   gateway:
     build:
