@@ -71,7 +71,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - ${SETUP}/grafana:/var/lib/grafana
       - ${SETUP}/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
 
   loadbalancer:
