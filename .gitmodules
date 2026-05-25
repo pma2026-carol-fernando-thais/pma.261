@@ -1,9 +1,9 @@
 [submodule "api/account"]
 	path = api/account
-	url = https://github.com/repo-classes/pma.261.account.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.account.git
 [submodule "api/account-service"]
 	path = api/account-service
-	url = https://github.com/repo-classes/pma.261.account-service.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.account-service.git
 [submodule "web/site"]
 	path = web/site
 	url = https://github.com/repo-classes/pma.261.site.git
@@ -12,13 +12,25 @@
 	url = https://github.com/repo-classes/pma.261.gateway-service.git
 [submodule "api/auth"]
 	path = api/auth
-	url = https://github.com/repo-classes/pma.261.auth.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.auth.git
 [submodule "api/auth-service"]
 	path = api/auth-service
-	url = https://github.com/repo-classes/pma.261.auth-service.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.auth-service.git
 [submodule "api/product"]
 	path = api/product
 	url = https://github.com/pma2026-carol-fernando-thais/product
 [submodule "api/product-service"]
 	path = api/product-service
 	url = https://github.com/pma2026-carol-fernando-thais/product-service
+[submodule "api/order"]
+	path = api/order
+	url = https://github.com/pma2026-carol-fernando-thais/order.git
+[submodule "api/order-service"]
+	path = api/order-service
+	url = https://github.com/pma2026-carol-fernando-thais/order-service.git
+[submodule "api/exchange"]
+	path = api/exchange
+	url = https://github.com/pma2026-carol-fernando-thais/exchange.git
+[submodule "api/exchange-service"]
+	path = api/exchange-service
+	url = https://github.com/pma2026-carol-fernando-thais/exchange-service.git
