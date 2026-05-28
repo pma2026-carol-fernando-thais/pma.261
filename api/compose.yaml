@@ -47,6 +47,34 @@ services:
     depends_on:
       - db
 
+  exchange:
+    build:
+      context: ./exchange-service
+      dockerfile: Dockerfile
+    hostname: exchange
+    deploy:
+      replicas: 1
+
+  order:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    hostname: order
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-store}
+      DB_USER: ${DB_USER:-store}
+      DB_PASSWORD: ${DB_PASSWORD:-devpass}
+      PRODUCT_URL: ${PRODUCT_URL:-http://product:8080}
+      EXCHANGE_URL: ${EXCHANGE_URL:-http://exchange:8080}
+    deploy:
+      replicas: 1
+    depends_on:
+      - db
+      - product
+      - exchange
+
   auth:
     build:
       context: ./auth-service
