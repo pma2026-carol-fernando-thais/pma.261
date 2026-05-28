@@ -6,10 +6,10 @@
 	url = https://github.com/pma2026-carol-fernando-thais/pma.261.account-service.git
 [submodule "web/site"]
 	path = web/site
-	url = https://github.com/repo-classes/pma.261.site.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.site.git
 [submodule "api/gateway-service"]
 	path = api/gateway-service
-	url = https://github.com/repo-classes/pma.261.gateway-service.git
+	url = https://github.com/pma2026-carol-fernando-thais/pma.261.gateway-service.git
 [submodule "api/auth"]
 	path = api/auth
 	url = https://github.com/pma2026-carol-fernando-thais/pma.261.auth.git
