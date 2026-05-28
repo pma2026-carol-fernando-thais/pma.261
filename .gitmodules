@@ -34,3 +34,6 @@
 [submodule "api/exchange-service"]
 	path = api/exchange-service
 	url = https://github.com/pma2026-carol-fernando-thais/exchange-service.git
+[submodule "api/novo-modulo"]
+	path = api/novo-modulo
+	url = https://github.com/pma2026-carol-fernando-thais/order.git
