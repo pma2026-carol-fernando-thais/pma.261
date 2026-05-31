@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('account-service') {
+            steps {
+                build job: 'account-service', wait: true
+            }
+        }
+        stage('auth-service') {
+            steps {
+                build job: 'auth-service', wait: true
+            }
+        }
+        stage('gateway-service') {
+            steps {
+                build job: 'gateway-service', wait: true
+            }
+        }
+        stage('product-service') {
+            steps {
+                build job: 'product-service', wait: true
+            }
+        }
+        stage('order-service') {
+            steps {
+                build job: 'order-service', wait: true
+            }
+        }
+    }
+}
