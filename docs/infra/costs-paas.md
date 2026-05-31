@@ -8,7 +8,7 @@ Data da estimativa: 2026-05-29.
 
 | Item | Premissa |
 |---|---|
-| Regiao | `us-east-1` |
+| Regiao | `us-east-2` |
 | Mes de referencia | 730 horas |
 | Cluster Kubernetes | 1 cluster Amazon EKS em suporte padrao |
 | Worker nodes | 2 instancias EC2 pequenas para os pods da aplicacao |
