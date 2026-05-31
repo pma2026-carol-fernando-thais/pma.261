@@ -136,4 +136,6 @@ nav:
   - Infraestrutura:
     - Docker Compose: infra/docker-compose.md
     - Observabilidade: infra/observabilidade.md
+    - Load Testing: infra/load-testing.md
+    - Costs & PaaS: infra/costs-paas.md
     - Jenkins (CI/CD): infra/jenkins.md
