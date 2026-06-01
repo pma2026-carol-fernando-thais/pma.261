@@ -576,15 +576,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-kubernetes-health-checks" class="md-nav__link">
+  <a href="#1-observabilidade" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Kubernetes Health Checks
+        1. Observabilidade
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Kubernetes Health Checks">
+    <nav class="md-nav" aria-label="1. Observabilidade">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -676,15 +676,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-dependencias-de-build" class="md-nav__link">
+  <a href="#3-kubernetes-health-checks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Dependências de Build
+        3. Kubernetes Health Checks
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Dependências de Build">
+    <nav class="md-nav" aria-label="3. Kubernetes Health Checks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -726,15 +726,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-credenciais-hardcoded" class="md-nav__link">
+  <a href="#4-credenciais-expostas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Credenciais Hardcoded
+        4. Credenciais Expostas
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. Credenciais Hardcoded">
+    <nav class="md-nav" aria-label="4. Credenciais Expostas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -761,6 +761,106 @@
         
           <li class="md-nav__item">
   <a href="#solucao_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solução
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Caching
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Caching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impacto_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impacto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucao_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solução
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-load-balancing-e-escalabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Load Balancing e Escalabilidade
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Load Balancing e Escalabilidade">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impacto_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impacto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucao_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Solução
@@ -1020,34 +1120,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../projeto/video/" class="md-nav__link">
         
   
@@ -1239,23 +1311,24 @@
 
 
 <h1 id="bottlenecks">Bottlenecks<a class="headerlink" href="#bottlenecks" title="Permanent link">&para;</a></h1>
-<h2 id="1-kubernetes-health-checks">1. Kubernetes Health Checks<a class="headerlink" href="#1-kubernetes-health-checks" title="Permanent link">&para;</a></h2>
+<h2 id="1-observabilidade">1. Observabilidade<a class="headerlink" href="#1-observabilidade" title="Permanent link">&para;</a></h2>
 <h3 id="problema">Problema<a class="headerlink" href="#problema" title="Permanent link">&para;</a></h3>
-<p>Os endpoints:</p>
-<ul>
-<li>/actuator/health/liveness</li>
-<li>/actuator/health/readiness</li>
-</ul>
-<p>estavam configurados no Kubernetes, porém o Spring Boot Actuator não estava presente no projeto.</p>
+<p>Sem monitoramento, é impossível identificar gargalos de performance, erros silenciosos e uso de recursos em produção.</p>
 <h3 id="impacto">Impacto<a class="headerlink" href="#impacto" title="Permanent link">&para;</a></h3>
-<p>Os pods poderiam entrar em loop de reinicialização.</p>
+<p>Incidentes detectados apenas pelo usuário final; ausência de dados para tomada de decisão.</p>
 <h3 id="solucao">Solução<a class="headerlink" href="#solucao" title="Permanent link">&para;</a></h3>
-<p>Foi adicionada a dependência:</p>
-<pre><code class="language-xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
+<p>Integração de <strong>Prometheus + Grafana</strong> via Micrometer:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">&lt;/dependency&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.micrometer<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>micrometer-registry-prometheus<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+<p>Métricas expostas em <code>/product/actuator/prometheus</code> e <code>/gateway/actuator/prometheus</code>, coletadas pelo Prometheus e visualizadas no Grafana.</p>
 <hr />
 <h2 id="2-vulnerability-scan">2. Vulnerability Scan<a class="headerlink" href="#2-vulnerability-scan" title="Permanent link">&para;</a></h2>
 <h3 id="problema_1">Problema<a class="headerlink" href="#problema_1" title="Permanent link">&para;</a></h3>
@@ -1263,42 +1336,65 @@
 <h3 id="impacto_1">Impacto<a class="headerlink" href="#impacto_1" title="Permanent link">&para;</a></h3>
 <p>Bibliotecas vulneráveis poderiam ser enviadas para produção.</p>
 <h3 id="solucao_1">Solução<a class="headerlink" href="#solucao_1" title="Permanent link">&para;</a></h3>
-<p>Foi adicionada a etapa:</p>
-<pre><code class="language-groovy">stage('Vulnerability Scan') {
-    steps {
-        sh 'mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=11'
-    }
-}
-</code></pre>
+<p>Stage adicionado em todos os Jenkinsfiles:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Vulnerability Scan&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=11&#39;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="o">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="o">}</span>
+</code></pre></div>
 <hr />
-<h2 id="3-dependencias-de-build">3. Dependências de Build<a class="headerlink" href="#3-dependencias-de-build" title="Permanent link">&para;</a></h2>
+<h2 id="3-kubernetes-health-checks">3. Kubernetes Health Checks<a class="headerlink" href="#3-kubernetes-health-checks" title="Permanent link">&para;</a></h2>
 <h3 id="problema_2">Problema<a class="headerlink" href="#problema_2" title="Permanent link">&para;</a></h3>
-<p>O serviço order-service dependia dos módulos:</p>
-<ul>
-<li>order</li>
-<li>product</li>
-</ul>
-<p>Porém apenas o módulo order era compilado.</p>
+<p>Os endpoints <code>/actuator/health/liveness</code> e <code>/actuator/health/readiness</code> estavam configurados no Kubernetes, porém o Spring Boot Actuator não estava presente.</p>
 <h3 id="impacto_2">Impacto<a class="headerlink" href="#impacto_2" title="Permanent link">&para;</a></h3>
-<p>Falha de build em ambientes limpos.</p>
+<p>Os pods poderiam entrar em loop de reinicialização.</p>
 <h3 id="solucao_2">Solução<a class="headerlink" href="#solucao_2" title="Permanent link">&para;</a></h3>
-<pre><code class="language-groovy">build job: 'order', wait: true
-build job: 'product', wait: true
-</code></pre>
+<p>Adição da dependência <code>spring-boot-starter-actuator</code> e configuração dos probes no Deployment.</p>
 <hr />
-<h2 id="4-credenciais-hardcoded">4. Credenciais Hardcoded<a class="headerlink" href="#4-credenciais-hardcoded" title="Permanent link">&para;</a></h2>
+<h2 id="4-credenciais-expostas">4. Credenciais Expostas<a class="headerlink" href="#4-credenciais-expostas" title="Permanent link">&para;</a></h2>
 <h3 id="problema_3">Problema<a class="headerlink" href="#problema_3" title="Permanent link">&para;</a></h3>
-<p>As credenciais do banco estavam fixas no Kubernetes.</p>
-<pre><code class="language-yaml">DB_USER: postgres
-DB_PASSWORD: postgres
-</code></pre>
+<p>Credenciais do banco hardcoded nos manifests Kubernetes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">DB_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+</code></pre></div>
 <h3 id="impacto_3">Impacto<a class="headerlink" href="#impacto_3" title="Permanent link">&para;</a></h3>
-<p>Baixa segurança e manutenção difícil.</p>
+<p>Baixa segurança — senha visível no repositório e difícil de rotacionar.</p>
 <h3 id="solucao_3">Solução<a class="headerlink" href="#solucao_3" title="Permanent link">&para;</a></h3>
-<p>Utilização de Jenkins Credentials e envsubst.</p>
-<pre><code class="language-yaml">DB_USER: ${DB_USER}
-DB_PASSWORD: ${DB_PASSWORD}
-</code></pre>
+<p>Utilização de Jenkins Credentials + <code>envsubst</code> para injeção em runtime:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">stringData</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">DATABASE_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_USER}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">DATABASE_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_PASSWORD}</span>
+</code></pre></div>
+<hr />
+<h2 id="5-caching">5. Caching<a class="headerlink" href="#5-caching" title="Permanent link">&para;</a></h2>
+<h3 id="problema_4">Problema<a class="headerlink" href="#problema_4" title="Permanent link">&para;</a></h3>
+<p>O <code>exchange-service</code> consulta uma API externa (<code>awesomeapi.com.br</code>) a cada requisição de câmbio, introduzindo latência (~300ms) e risco de indisponibilidade por rate limit.</p>
+<h3 id="impacto_4">Impacto<a class="headerlink" href="#impacto_4" title="Permanent link">&para;</a></h3>
+<p>Cada pedido criado pelo <code>order-service</code> dispara uma chamada externa desnecessária para a mesma taxa de câmbio.</p>
+<h3 id="solucao_4">Solução<a class="headerlink" href="#solucao_4" title="Permanent link">&para;</a></h3>
+<p>Implementar <strong>Redis</strong> no <code>exchange-service</code> com TTL de 60 segundos por par de moedas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;rate:</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">cached</span> <span class="o">=</span> <span class="n">redis_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">if</span> <span class="n">cached</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">return</span> <span class="n">ProviderRate</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cached</span><span class="p">))</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># ... busca externa ...</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">redis_client</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="o">...</span><span class="p">}))</span>
+</code></pre></div>
+<hr />
+<h2 id="6-load-balancing-e-escalabilidade">6. Load Balancing e Escalabilidade<a class="headerlink" href="#6-load-balancing-e-escalabilidade" title="Permanent link">&para;</a></h2>
+<h3 id="problema_5">Problema<a class="headerlink" href="#problema_5" title="Permanent link">&para;</a></h3>
+<p>Picos de tráfego sobrecarregam instâncias fixas do gateway.</p>
+<h3 id="impacto_5">Impacto<a class="headerlink" href="#impacto_5" title="Permanent link">&para;</a></h3>
+<p>Latência alta e possível indisponibilidade em momentos de pico.</p>
+<h3 id="solucao_5">Solução<a class="headerlink" href="#solucao_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Nginx</strong> como load balancer no ambiente Docker Compose</li>
+<li><strong>Service tipo LoadBalancer</strong> no Kubernetes (EKS provisiona ALB)</li>
+<li><strong>HPA</strong> no gateway: escala de 1 a 10 réplicas quando CPU &gt; 50%</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api/gateway-service/k8s/hpa.yaml
+</code></pre></div>
 
 
 

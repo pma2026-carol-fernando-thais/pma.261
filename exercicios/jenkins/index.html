@@ -531,10 +531,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline-implementada" class="md-nav__link">
+  <a href="#pipeline-por-servico" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pipeline Implementada
+        Pipeline por Serviço
       
     </span>
   </a>
@@ -542,10 +542,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ferramentas-utilizadas" class="md-nav__link">
+  <a href="#jenkinsfile-raiz" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ferramentas Utilizadas
+        Jenkinsfile Raiz
       
     </span>
   </a>
@@ -553,10 +553,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#evidencias" class="md-nav__link">
+  <a href="#configuracao-aws" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Evidências
+        Configuração AWS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credenciais-jenkins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciais Jenkins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segurança
       
     </span>
   </a>
@@ -864,34 +886,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../projeto/video/" class="md-nav__link">
         
   
@@ -1084,26 +1078,116 @@
 
 <h1 id="jenkins">Jenkins<a class="headerlink" href="#jenkins" title="Permanent link">&para;</a></h1>
 <h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
-<p>Automatizar o processo de integração contínua e entrega contínua (CI/CD).</p>
-<h2 id="pipeline-implementada">Pipeline Implementada<a class="headerlink" href="#pipeline-implementada" title="Permanent link">&para;</a></h2>
-<p>Cada serviço possui pipeline responsável por:</p>
-<ol>
-<li>Checkout do código</li>
-<li>Build Maven</li>
-<li>Vulnerability Scan</li>
-<li>Build da imagem Docker</li>
-<li>Push para Docker Hub</li>
-<li>Deploy no Kubernetes</li>
-</ol>
-<h2 id="ferramentas-utilizadas">Ferramentas Utilizadas<a class="headerlink" href="#ferramentas-utilizadas" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Jenkins</li>
-<li>Docker</li>
-<li>Docker Hub</li>
-<li>AWS EKS</li>
-</ul>
-<h2 id="evidencias">Evidências<a class="headerlink" href="#evidencias" title="Permanent link">&para;</a></h2>
-<p>Adicionar screenshots dos pipelines executando.</p>
+<p>Automatizar build, scan de vulnerabilidades, publicação e deploy de todos os microsserviços no cluster EKS.</p>
+<h2 id="pipeline-por-servico">Pipeline por Serviço<a class="headerlink" href="#pipeline-por-servico" title="Permanent link">&para;</a></h2>
+<p>Cada microsserviço possui seu próprio <code>Jenkinsfile</code> com os seguintes stages:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Stage</th>
+<th>O que faz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>SCM</strong></td>
+<td>Checkout do código (<code>checkout scm</code>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Dependencies</strong></td>
+<td>Compila a biblioteca de contrato do serviço</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Build</strong></td>
+<td>Empacota o JAR (<code>mvn -B -DskipTests clean package</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Vulnerability Scan</strong></td>
+<td>OWASP Dependency Check — falha se CVSS ≥ 11</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Build &amp; Push Image</strong></td>
+<td>Imagem multi-plataforma (arm64/amd64) publicada no Docker Hub</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Deploy to K8s</strong></td>
+<td>Aplica manifesto k8s no EKS via <code>kubectl apply</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="jenkinsfile-raiz">Jenkinsfile Raiz<a class="headerlink" href="#jenkinsfile-raiz" title="Permanent link">&para;</a></h2>
+<p>O arquivo <code>api/Jenkinsfile</code> orquestra todos os serviços em sequência:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">pipeline</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">agent</span><span class="w"> </span><span class="n">any</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">stages</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;account-service&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;account-service&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;auth-service&#39;</span><span class="o">)</span><span class="w">    </span><span class="o">{</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;auth-service&#39;</span><span class="o">,</span><span class="w">    </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;gateway-service&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;gateway-service&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;product-service&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;product-service&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;order-service&#39;</span><span class="o">)</span><span class="w">   </span><span class="o">{</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;order-service&#39;</span><span class="o">,</span><span class="w">   </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="o">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="o">}</span>
+</code></pre></div>
+<h2 id="configuracao-aws">Configuração AWS<a class="headerlink" href="#configuracao-aws" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variável</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AWS_REGION</code></td>
+<td><code>us-east-2</code></td>
+</tr>
+<tr>
+<td><code>EKS_CLUSTER</code></td>
+<td><code>eks-store2</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="credenciais-jenkins">Credenciais Jenkins<a class="headerlink" href="#credenciais-jenkins" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerhub-credential</code></td>
+<td>Username/Password</td>
+<td>Login no Docker Hub</td>
+</tr>
+<tr>
+<td><code>db-credential</code></td>
+<td>Username/Password</td>
+<td><code>DB_USER</code> / <code>DB_PASSWORD</code> via envsubst</td>
+</tr>
+<tr>
+<td><code>aws-credentials</code></td>
+<td>AWS Credentials</td>
+<td>Acesso ao EKS</td>
+</tr>
+<tr>
+<td><code>jwt-secret-key</code></td>
+<td>Secret Text</td>
+<td><code>JWT_SECRET_KEY</code> para auth-service</td>
+</tr>
+</tbody>
+</table>
+<h2 id="seguranca">Segurança<a class="headerlink" href="#seguranca" title="Permanent link">&para;</a></h2>
+<p>Nenhum valor sensível está no código. Credenciais são injetadas via <code>withCredentials</code> e substituídas nos manifests via <code>envsubst</code> antes do <code>kubectl apply</code>.</p>
 
 
 

@@ -16,7 +16,7 @@
         <link rel="prev" href="../custos/">
       
       
-        <link rel="next" href="../apresentacao/">
+        <link rel="next" href="../video/">
       
       
         
@@ -805,39 +805,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#conceito" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Conceito
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#utilizacao-no-projeto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Utilização no Projeto
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#beneficios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Benefícios
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#servicos-utilizados" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -848,38 +815,21 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#beneficio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefício
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1083,24 +1033,51 @@
 
 
 <h1 id="paas">PaaS<a class="headerlink" href="#paas" title="Permanent link">&para;</a></h1>
-<h2 id="conceito">Conceito<a class="headerlink" href="#conceito" title="Permanent link">&para;</a></h2>
-<p>Platform as a Service (PaaS) fornece uma plataforma completa para desenvolvimento e execução de aplicações.</p>
-<h2 id="utilizacao-no-projeto">Utilização no Projeto<a class="headerlink" href="#utilizacao-no-projeto" title="Permanent link">&para;</a></h2>
-<p>Foram utilizados serviços gerenciados para facilitar o provisionamento da infraestrutura.</p>
-<h2 id="beneficios">Benefícios<a class="headerlink" href="#beneficios" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Menor esforço operacional</li>
-<li>Escalabilidade</li>
-<li>Alta disponibilidade</li>
-<li>Facilidade de manutenção</li>
-</ul>
+<p>PaaS (Platform as a Service) é o uso de plataformas gerenciadas que eliminam a necessidade de operar infraestrutura de baixo nível.</p>
 <h2 id="servicos-utilizados">Serviços Utilizados<a class="headerlink" href="#servicos-utilizados" title="Permanent link">&para;</a></h2>
-<ul>
-<li>AWS</li>
-<li>Docker Hub</li>
-<li>GitHub</li>
-<li>Jenkins</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Como o projeto usa</th>
+<th>Responsabilidade transferida para o provedor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amazon EKS</strong></td>
+<td>Orquestração dos containers e deployments Kubernetes</td>
+<td>Control plane, API server gerenciado</td>
+</tr>
+<tr>
+<td><strong>Amazon RDS for PostgreSQL</strong></td>
+<td>Banco relacional da aplicação</td>
+<td>Backup, patching, disponibilidade e recuperação</td>
+</tr>
+<tr>
+<td><strong>Amazon ECR</strong></td>
+<td>Registry de imagens Docker</td>
+<td>Armazenamento, disponibilidade e distribuição</td>
+</tr>
+<tr>
+<td><strong>Elastic Load Balancing</strong></td>
+<td>Entrada HTTP para o gateway</td>
+<td>Alta disponibilidade do balanceador</td>
+</tr>
+<tr>
+<td><strong>Amazon CloudWatch</strong></td>
+<td>Logs, métricas e alarmes</td>
+<td>Coleta, armazenamento e consulta de telemetria</td>
+</tr>
+<tr>
+<td><strong>Docker Hub</strong></td>
+<td>Alternativa de registry público</td>
+<td>Hospedagem e distribuição de imagens</td>
+</tr>
+</tbody>
+</table>
+<h2 id="beneficio">Benefício<a class="headerlink" href="#beneficio" title="Permanent link">&para;</a></h2>
+<p>O uso desses serviços reduz o trabalho operacional do grupo: em vez de manter manualmente control plane Kubernetes, registry, banco de dados e stack de logs, o time foca no desenvolvimento dos microsserviços, pipeline e configuração declarativa.</p>
 
 
 

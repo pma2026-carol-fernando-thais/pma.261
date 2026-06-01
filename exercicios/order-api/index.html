@@ -486,6 +486,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#integracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrações
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#funcionalidades" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -497,32 +508,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#estrutura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Estrutura
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#codigo-fonte" class="md-nav__link">
     <span class="md-ellipsis">
       
         Código Fonte
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#evidencias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Evidências
       
     </span>
   </a>
@@ -886,34 +875,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../projeto/video/" class="md-nav__link">
         
   
@@ -1106,33 +1067,62 @@
 
 <h1 id="order-api">Order API<a class="headerlink" href="#order-api" title="Permanent link">&para;</a></h1>
 <h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
-<p>Desenvolver uma API responsável pelo gerenciamento de pedidos da plataforma.</p>
+<p>API RESTful para gerenciamento de pedidos da plataforma, integrando product-service e exchange-service para calcular totais em múltiplas moedas.</p>
 <h2 id="tecnologias">Tecnologias<a class="headerlink" href="#tecnologias" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Java 21</li>
-<li>Spring Boot</li>
-<li>OpenFeign</li>
-<li>PostgreSQL</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Tecnologia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linguagem</td>
+<td>Java 21</td>
+</tr>
+<tr>
+<td>Framework</td>
+<td>Spring Boot 3.x + Spring Data JPA</td>
+</tr>
+<tr>
+<td>Comunicação</td>
+<td>Spring Cloud OpenFeign</td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>PostgreSQL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="integracoes">Integrações<a class="headerlink" href="#integracoes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Como usa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>product-service</code></td>
+<td>Consulta dados e preço do produto via Feign (<code>http://product-service:8080</code>)</td>
+</tr>
+<tr>
+<td><code>exchange-service</code></td>
+<td>Obtém taxa de câmbio para conversão de moeda via Feign (<code>http://exchange:8080</code>)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="funcionalidades">Funcionalidades<a class="headerlink" href="#funcionalidades" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Criação de pedidos</li>
-<li>Consulta de pedidos</li>
-<li>Integração com Product Service</li>
-<li>Integração com Exchange Service</li>
-</ul>
-<h2 id="estrutura">Estrutura<a class="headerlink" href="#estrutura" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Controller</li>
-<li>Service</li>
-<li>Repository</li>
-<li>DTOs</li>
+<li>Criação de pedidos com múltiplos produtos</li>
+<li>Consulta de pedidos por ID e por conta</li>
+<li>Cálculo do total em moeda local via taxa de câmbio</li>
+<li>Integração com product-service e exchange-service</li>
 </ul>
 <h2 id="codigo-fonte">Código Fonte<a class="headerlink" href="#codigo-fonte" title="Permanent link">&para;</a></h2>
-<p>Repositório:</p>
-<p>https://github.com/pma2026-carol-fernando-thais/order-service</p>
-<h2 id="evidencias">Evidências<a class="headerlink" href="#evidencias" title="Permanent link">&para;</a></h2>
-<p>Adicionar screenshots da aplicação e endpoints.</p>
+<p><a href="https://github.com/pma2026-carol-fernando-thais/order-service.git">pma2026-carol-fernando-thais/order-service</a></p>
 
 
 

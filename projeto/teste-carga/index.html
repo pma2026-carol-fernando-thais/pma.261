@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#load-testing" class="md-skip">
+        <a href="#teste-de-carga" class="md-skip">
           Skip to content
         </a>
       
@@ -760,10 +760,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cenarios-avaliados" class="md-nav__link">
+  <a href="#abordagem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cenários Avaliados
+        Abordagem
       
     </span>
   </a>
@@ -771,10 +771,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#metricas" class="md-nav__link">
+  <a href="#pre-requisitos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Métricas
+        Pré-requisitos
       
     </span>
   </a>
@@ -782,10 +782,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resultados" class="md-nav__link">
+  <a href="#deploy-do-gateway-com-hpa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resultados
+        Deploy do Gateway com HPA
       
     </span>
   </a>
@@ -793,10 +793,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ferramentas" class="md-nav__link">
+  <a href="#gerar-carga" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ferramentas
+        Gerar Carga
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitorar-escalabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitorar Escalabilidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comportamento-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comportamento Esperado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limpeza" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpeza
       
     </span>
   </a>
@@ -855,34 +888,6 @@
     
   
     PaaS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
   
 
     
@@ -1093,31 +1098,65 @@
 
 
 
-<h1 id="load-testing">Load Testing<a class="headerlink" href="#load-testing" title="Permanent link">&para;</a></h1>
+<h1 id="teste-de-carga">Teste de Carga<a class="headerlink" href="#teste-de-carga" title="Permanent link">&para;</a></h1>
 <h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
-<p>Avaliar o comportamento da aplicação sob diferentes volumes de requisições.</p>
-<h2 id="cenarios-avaliados">Cenários Avaliados<a class="headerlink" href="#cenarios-avaliados" title="Permanent link">&para;</a></h2>
+<p>Validar o comportamento da plataforma sob carga e demonstrar a escalabilidade automática do gateway via HPA.</p>
+<h2 id="abordagem">Abordagem<a class="headerlink" href="#abordagem" title="Permanent link">&para;</a></h2>
+<p>O teste usa um pod <code>busybox</code> no próprio cluster Kubernetes para gerar requisições contínuas ao gateway, observando o HPA escalar os pods automaticamente.</p>
+<h2 id="pre-requisitos">Pré-requisitos<a class="headerlink" href="#pre-requisitos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Baixa carga</li>
-<li>Carga moderada</li>
-<li>Alta carga</li>
+<li>Cluster Kubernetes acessível via <code>kubectl</code></li>
+<li><code>metrics-server</code> ativo (necessário para o HPA)</li>
+<li>Imagem do gateway publicada no registry</li>
 </ul>
-<h2 id="metricas">Métricas<a class="headerlink" href="#metricas" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Tempo médio de resposta</li>
-<li>Throughput</li>
-<li>Taxa de erros</li>
-<li>Utilização de recursos</li>
-</ul>
-<h2 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h2>
-<p>Adicionar os resultados dos testes realizados durante o projeto.</p>
-<h2 id="ferramentas">Ferramentas<a class="headerlink" href="#ferramentas" title="Permanent link">&para;</a></h2>
-<ul>
-<li>JMeter</li>
-<li>k6</li>
-<li>Postman Runner</li>
-</ul>
-<p>(Adicionar a ferramenta efetivamente utilizada pelo grupo.)</p>
+<h2 id="deploy-do-gateway-com-hpa">Deploy do Gateway com HPA<a class="headerlink" href="#deploy-do-gateway-com-hpa" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Aplicar deployment e service do gateway</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api/gateway-service/k8s/k8s.yaml
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Criar HPA (escala de 1 a 10 pods quando CPU &gt; 50%)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api/gateway-service/k8s/hpa.yaml
+</code></pre></div>
+<h2 id="gerar-carga">Gerar Carga<a class="headerlink" href="#gerar-carga" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Iniciar gerador de carga</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api/gateway-service/k8s/load-generator.yaml
+</code></pre></div>
+<p>Ou interativamente:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>run<span class="w"> </span>-i<span class="w"> </span>--tty<span class="w"> </span>load-generator<span class="w"> </span>--rm<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;while sleep 0.01; do wget -q -O- http://gateway/health-check &gt; /dev/null; done&quot;</span>
+</code></pre></div>
+<h2 id="monitorar-escalabilidade">Monitorar Escalabilidade<a class="headerlink" href="#monitorar-escalabilidade" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux/macOS</label><label for="__tabbed_1_2">PowerShell</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Terminal 1 — HPA</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;kubectl get hpa&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Terminal 2 — Pods</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;kubectl get pods -l app=gateway&#39;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># HPA</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span> <span class="n">kubectl</span> <span class="n">get</span> <span class="n">hpa</span><span class="p">;</span> <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">1</span><span class="p">;</span> <span class="nb">Clear-Host</span> <span class="p">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c"># Pods</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span> <span class="n">kubectl</span> <span class="n">get</span> <span class="n">pods</span> <span class="n">-l</span> <span class="n">app</span><span class="p">=</span><span class="n">gateway</span><span class="p">;</span> <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">1</span><span class="p">;</span> <span class="nb">Clear-Host</span> <span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="comportamento-esperado">Comportamento Esperado<a class="headerlink" href="#comportamento-esperado" title="Permanent link">&para;</a></h2>
+<p>À medida que a carga aumenta:</p>
+<ol>
+<li>CPU dos pods do gateway ultrapassa 50%</li>
+<li>HPA detecta o aumento e escala o Deployment</li>
+<li>Novos pods são criados (até máximo de 10)</li>
+<li>Ao remover a carga, os pods são removidos gradualmente</li>
+</ol>
+<h2 id="limpeza">Limpeza<a class="headerlink" href="#limpeza" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>load-generator<span class="w"> </span>--ignore-not-found
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>kubectl<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>api/gateway-service/k8s/hpa.yaml<span class="w"> </span>--ignore-not-found
+</code></pre></div>
 
 
 

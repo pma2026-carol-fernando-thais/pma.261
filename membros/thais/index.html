@@ -770,34 +770,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../projeto/video/" class="md-nav__link">
         
   
@@ -980,6 +952,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bottlenecks Implementados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Health Checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vulnerability-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vulnerability Scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencias-de-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependências de Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credenciais-seguras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciais Seguras
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1074,22 +1096,26 @@
 <h1 id="thais-rocha-silveira">Thaís Rocha Silveira<a class="headerlink" href="#thais-rocha-silveira" title="Permanent link">&para;</a></h1>
 <h2 id="responsabilidades">Responsabilidades<a class="headerlink" href="#responsabilidades" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Order API</li>
-<li>Order Service</li>
+<li>Order API e Order Service</li>
 <li>Documentação relacionada ao módulo de pedidos</li>
 </ul>
 <h2 id="repositorios">Repositórios<a class="headerlink" href="#repositorios" title="Permanent link">&para;</a></h2>
 <ul>
-<li>order</li>
-<li>order-service</li>
+<li><a href="https://github.com/pma2026-carol-fernando-thais/order.git">order</a></li>
+<li><a href="https://github.com/pma2026-carol-fernando-thais/order-service.git">order-service</a></li>
 </ul>
 <h2 id="bottlenecks-implementados">Bottlenecks Implementados<a class="headerlink" href="#bottlenecks-implementados" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Kubernetes Health Checks</li>
-<li>Vulnerability Scan</li>
-<li>Build Dependencies</li>
-<li>Hardcoded Credentials</li>
-</ul>
+<h3 id="kubernetes-health-checks">Kubernetes Health Checks<a class="headerlink" href="#kubernetes-health-checks" title="Permanent link">&para;</a></h3>
+<p>Configuração dos probes <code>liveness</code> e <code>readiness</code> no manifest k8s do <code>order-service</code>, garantindo que o Kubernetes reinicie pods com falha e só encaminhe tráfego para pods prontos.</p>
+<h3 id="vulnerability-scan">Vulnerability Scan<a class="headerlink" href="#vulnerability-scan" title="Permanent link">&para;</a></h3>
+<p>Stage OWASP Dependency Check adicionado no Jenkinsfile do <code>order-service</code>. Falha o build se alguma dependência tiver CVSS ≥ 11.</p>
+<h3 id="dependencias-de-build">Dependências de Build<a class="headerlink" href="#dependencias-de-build" title="Permanent link">&para;</a></h3>
+<p>O <code>order-service</code> depende dos módulos <code>order</code> e <code>product</code>. O pipeline garante que ambos sejam compilados antes do build do serviço:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;order&#39;</span><span class="o">,</span><span class="w">   </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">build</span><span class="w"> </span><span class="nl">job:</span><span class="w"> </span><span class="s1">&#39;product&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">wait:</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<h3 id="credenciais-seguras">Credenciais Seguras<a class="headerlink" href="#credenciais-seguras" title="Permanent link">&para;</a></h3>
+<p>Substituição de credenciais hardcoded no manifest Kubernetes por variáveis injetadas via Jenkins Credentials em runtime.</p>
 
 
 

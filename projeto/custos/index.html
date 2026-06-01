@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cost-analysis" class="md-skip">
+        <a href="#custos" class="md-skip">
           Skip to content
         </a>
       
@@ -777,60 +777,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#infraestrutura-utilizada" class="md-nav__link">
+  <a href="#premissas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura Utilizada
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Infraestrutura Utilizada">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#aws-eks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        AWS EKS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#docker-hub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Hub
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#postgresql" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PostgreSQL
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custos-considerados" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Custos Considerados
+        Premissas
       
     </span>
   </a>
@@ -838,10 +788,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#estrategias-de-otimizacao" class="md-nav__link">
+  <a href="#plano-de-custos" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Estratégias de Otimização
+        Plano de Custos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#otimizacao-de-custos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otimização de Custos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referências
       
     </span>
   </a>
@@ -872,34 +844,6 @@
     
   
     PaaS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
   
 
     
@@ -1110,27 +1054,155 @@
 
 
 
-<h1 id="cost-analysis">Cost Analysis<a class="headerlink" href="#cost-analysis" title="Permanent link">&para;</a></h1>
-<h2 id="infraestrutura-utilizada">Infraestrutura Utilizada<a class="headerlink" href="#infraestrutura-utilizada" title="Permanent link">&para;</a></h2>
-<h3 id="aws-eks">AWS EKS<a class="headerlink" href="#aws-eks" title="Permanent link">&para;</a></h3>
-<p>Cluster Kubernetes hospedado na AWS.</p>
-<h3 id="docker-hub">Docker Hub<a class="headerlink" href="#docker-hub" title="Permanent link">&para;</a></h3>
-<p>Armazenamento das imagens Docker.</p>
-<h3 id="postgresql">PostgreSQL<a class="headerlink" href="#postgresql" title="Permanent link">&para;</a></h3>
-<p>Banco de dados utilizado pelos serviços.</p>
-<h2 id="custos-considerados">Custos Considerados<a class="headerlink" href="#custos-considerados" title="Permanent link">&para;</a></h2>
+<h1 id="custos">Custos<a class="headerlink" href="#custos" title="Permanent link">&para;</a></h1>
+<p>Estimativa de custo mensal para ambiente de demonstração na AWS. Região: <code>us-east-1</code>. Referência: 2026-05-29.</p>
+<h2 id="premissas">Premissas<a class="headerlink" href="#premissas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Premissa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cluster Kubernetes</td>
+<td>1 cluster Amazon EKS</td>
+</tr>
+<tr>
+<td>Worker nodes</td>
+<td>2 instâncias EC2 <code>t3.medium</code></td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>Amazon RDS for PostgreSQL Single-AZ <code>db.t4g.micro</code></td>
+</tr>
+<tr>
+<td>Registry</td>
+<td>Amazon ECR (5 GB)</td>
+</tr>
+<tr>
+<td>Load Balancer</td>
+<td>1 Application Load Balancer</td>
+</tr>
+<tr>
+<td>Observabilidade</td>
+<td>CloudWatch Logs + métricas básicas</td>
+</tr>
+<tr>
+<td>Tráfego</td>
+<td>Baixo volume — ambiente acadêmico</td>
+</tr>
+</tbody>
+</table>
+<h2 id="plano-de-custos">Plano de Custos<a class="headerlink" href="#plano-de-custos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Serviço AWS</th>
+<th>Uso previsto</th>
+<th style="text-align: right;">Estimativa mensal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amazon EKS control plane</td>
+<td>1 cluster</td>
+<td style="text-align: right;">USD 73.00</td>
+</tr>
+<tr>
+<td>EC2 worker nodes</td>
+<td>2 × <code>t3.medium</code></td>
+<td style="text-align: right;">USD 60.74</td>
+</tr>
+<tr>
+<td>EBS dos worker nodes</td>
+<td>2 × 20 GB</td>
+<td style="text-align: right;">USD 3.20</td>
+</tr>
+<tr>
+<td>Amazon RDS PostgreSQL</td>
+<td>1 <code>db.t4g.micro</code> Single-AZ</td>
+<td style="text-align: right;">USD 11.68</td>
+</tr>
+<tr>
+<td>RDS storage</td>
+<td>20 GB gp3</td>
+<td style="text-align: right;">USD 2.30</td>
+</tr>
+<tr>
+<td>Application Load Balancer</td>
+<td>1 ALB</td>
+<td style="text-align: right;">USD 22.27</td>
+</tr>
+<tr>
+<td>Amazon ECR</td>
+<td>5 GB imagens</td>
+<td style="text-align: right;">USD 0.50</td>
+</tr>
+<tr>
+<td>CloudWatch Logs</td>
+<td>5 GB ingeridos</td>
+<td style="text-align: right;">USD 2.50</td>
+</tr>
+<tr>
+<td>CloudWatch Alarms</td>
+<td>3 alarmes</td>
+<td style="text-align: right;">USD 0.30</td>
+</tr>
+<tr>
+<td>Data transfer out</td>
+<td>10 GB</td>
+<td style="text-align: right;">USD 0.90</td>
+</tr>
+<tr>
+<td><strong>Total estimado</strong></td>
+<td></td>
+<td style="text-align: right;"><strong>USD 177.39/mês</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Estimativa</p>
+<p>Não inclui impostos, Free Tier, NAT Gateway, Route 53, snapshots extras ou aumento de réplicas durante testes de carga.</p>
+</div>
+<h2 id="otimizacao-de-custos">Otimização de Custos<a class="headerlink" href="#otimizacao-de-custos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Impacto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desligar ambientes fora do período de teste</td>
+<td>Reduz EC2, EKS, RDS e Load Balancer</td>
+</tr>
+<tr>
+<td>Usar réplicas mínimas em desenvolvimento</td>
+<td>Reduz custo dos worker nodes</td>
+</tr>
+<tr>
+<td>Configurar lifecycle policy no ECR</td>
+<td>Remove imagens antigas</td>
+</tr>
+<tr>
+<td>Limitar retenção de logs no CloudWatch</td>
+<td>Evita crescimento contínuo</td>
+</tr>
+<tr>
+<td>Usar RDS Single-AZ no ambiente acadêmico</td>
+<td>Mais barato que Multi-AZ</td>
+</tr>
+</tbody>
+</table>
+<h2 id="referencias">Referências<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Nós do cluster Kubernetes</li>
-<li>Armazenamento</li>
-<li>Transferência de dados</li>
-<li>Imagens Docker</li>
-</ul>
-<h2 id="estrategias-de-otimizacao">Estratégias de Otimização<a class="headerlink" href="#estrategias-de-otimizacao" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Uso de containers leves</li>
-<li>Controle de réplicas</li>
-<li>Limites de CPU e memória</li>
-<li>Escalabilidade sob demanda</li>
+<li><a href="https://calculator.aws/">AWS Pricing Calculator</a></li>
+<li><a href="https://aws.amazon.com/eks/pricing/">Amazon EKS pricing</a></li>
+<li><a href="https://aws.amazon.com/rds/postgresql/pricing/">Amazon RDS for PostgreSQL pricing</a></li>
+<li><a href="https://aws.amazon.com/ec2/pricing/on-demand/">Amazon EC2 On-Demand pricing</a></li>
 </ul>
 
 

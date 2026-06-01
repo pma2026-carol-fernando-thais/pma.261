@@ -361,21 +361,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#organizacao" class="md-nav__link">
+  <a href="#stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Organização
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#projeto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Projeto
+        Stack
       
     </span>
   </a>
@@ -395,17 +384,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bibliotecas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bibliotecas
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#microsservicos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -417,10 +395,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#infraestrutura" class="md-nav__link">
+  <a href="#bibliotecas-de-contrato" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infraestrutura
+        Bibliotecas de Contrato
       
     </span>
   </a>
@@ -898,34 +876,6 @@
   
   
     <li class="md-nav__item">
-      <a href="projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="projeto/video/" class="md-nav__link">
         
   
@@ -1117,48 +1067,136 @@
 
 
 <h1 id="store-platform">Store Platform<a class="headerlink" href="#store-platform" title="Permanent link">&para;</a></h1>
+<p>Plataforma de e-commerce baseada em microsserviços desenvolvida na disciplina <strong>PMA.261</strong> — Plataformas, Microsserviços, DevOps e APIs.</p>
 <h2 id="integrantes">Integrantes<a class="headerlink" href="#integrantes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Thaís</li>
-<li>Carol</li>
-<li>Fernando</li>
-</ul>
-<h2 id="organizacao">Organização<a class="headerlink" href="#organizacao" title="Permanent link">&para;</a></h2>
-<p>https://github.com/pma2026-carol-fernando-thais</p>
-<h2 id="projeto">Projeto<a class="headerlink" href="#projeto" title="Permanent link">&para;</a></h2>
-<p>Plataforma baseada em microsserviços utilizando:</p>
-<ul>
-<li>Spring Boot</li>
-<li>Docker</li>
-<li>Jenkins</li>
-<li>Kubernetes</li>
-<li>AWS EKS</li>
-<li>PostgreSQL</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thaís Rocha Silveira</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais">pma2026-carol-fernando-thais</a></td>
+</tr>
+<tr>
+<td>Carol</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais">pma2026-carol-fernando-thais</a></td>
+</tr>
+<tr>
+<td>Fernando</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais">pma2026-carol-fernando-thais</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="stack">Stack<a class="headerlink" href="#stack" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Tecnologias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend</td>
+<td>Java 25 (Spring Boot 4.x), Java 21 (Spring Boot 3.x), Python 3 (FastAPI)</td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>PostgreSQL + Flyway</td>
+</tr>
+<tr>
+<td>Containerização</td>
+<td>Docker + Docker Compose</td>
+</tr>
+<tr>
+<td>Orquestração</td>
+<td>Kubernetes — AWS EKS</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>Jenkins + OWASP Dependency Check</td>
+</tr>
+<tr>
+<td>Observabilidade</td>
+<td>Prometheus + Grafana</td>
+</tr>
+<tr>
+<td>Load Balancing</td>
+<td>Nginx + ALB (EKS) + HPA</td>
+</tr>
+</tbody>
+</table>
 <h2 id="repositorios">Repositórios<a class="headerlink" href="#repositorios" title="Permanent link">&para;</a></h2>
-<p>A solução é composta pelos seguintes módulos:</p>
-<h3 id="bibliotecas">Bibliotecas<a class="headerlink" href="#bibliotecas" title="Permanent link">&para;</a></h3>
-<ul>
-<li>account</li>
-<li>auth</li>
-<li>exchange</li>
-<li>order</li>
-<li>product</li>
-</ul>
 <h3 id="microsservicos">Microsserviços<a class="headerlink" href="#microsservicos" title="Permanent link">&para;</a></h3>
-<ul>
-<li>account-service</li>
-<li>auth-service</li>
-<li>exchange-service</li>
-<li>gateway-service</li>
-<li>order-service</li>
-<li>product-service</li>
-</ul>
-<h3 id="infraestrutura">Infraestrutura<a class="headerlink" href="#infraestrutura" title="Permanent link">&para;</a></h3>
-<ul>
-<li>postgres-service</li>
-<li>setup</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Repositório</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/pma.261.account-service">pma2026-carol-fernando-thais/pma.261.account-service</a></td>
+</tr>
+<tr>
+<td>auth-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/pma.261.auth-service">pma2026-carol-fernando-thais/pma.261.auth-service</a></td>
+</tr>
+<tr>
+<td>gateway-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/pma.261.gateway-service">pma2026-carol-fernando-thais/pma.261.gateway-service</a></td>
+</tr>
+<tr>
+<td>product-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/product-service">pma2026-carol-fernando-thais/product-service</a></td>
+</tr>
+<tr>
+<td>order-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/order-service">pma2026-carol-fernando-thais/order-service</a></td>
+</tr>
+<tr>
+<td>exchange-service</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/exchange-service">pma2026-carol-fernando-thais/exchange-service</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="bibliotecas-de-contrato">Bibliotecas de Contrato<a class="headerlink" href="#bibliotecas-de-contrato" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Biblioteca</th>
+<th>Repositório</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/pma.261.account">pma2026-carol-fernando-thais/pma.261.account</a></td>
+</tr>
+<tr>
+<td>auth</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/pma.261.auth">pma2026-carol-fernando-thais/pma.261.auth</a></td>
+</tr>
+<tr>
+<td>product</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/product">pma2026-carol-fernando-thais/product</a></td>
+</tr>
+<tr>
+<td>order</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/order">pma2026-carol-fernando-thais/order</a></td>
+</tr>
+<tr>
+<td>exchange</td>
+<td><a href="https://github.com/pma2026-carol-fernando-thais/exchange">pma2026-carol-fernando-thais/exchange</a></td>
+</tr>
+</tbody>
+</table>
 
 
 

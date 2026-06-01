@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#architecture" class="md-skip">
+        <a href="#arquitetura" class="md-skip">
           Skip to content
         </a>
       
@@ -716,6 +716,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#nginx-load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nginx (Load Balancer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gateway-service" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -787,10 +798,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#banco-de-dados" class="md-nav__link">
+  <a href="#fluxo-de-criacao-de-pedido" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Banco de Dados
+        Fluxo de Criação de Pedido
       
     </span>
   </a>
@@ -798,21 +809,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#containerizacao" class="md-nav__link">
+  <a href="#infraestrutura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Containerização
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#orquestracao" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Orquestração
+        Infraestrutura
       
     </span>
   </a>
@@ -927,34 +927,6 @@
     
   
     PaaS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
   
 
     
@@ -1165,36 +1137,105 @@
 
 
 
-<h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
+<h1 id="arquitetura">Arquitetura<a class="headerlink" href="#arquitetura" title="Permanent link">&para;</a></h1>
 <h2 id="visao-geral">Visão Geral<a class="headerlink" href="#visao-geral" title="Permanent link">&para;</a></h2>
-<p>A plataforma segue uma arquitetura baseada em microsserviços.</p>
-<pre><code class="language-text">Cliente
-   |
-Gateway Service
-   |
-------------------------------------------------
-|          |           |           |            |
-Auth    Account    Product     Order      Exchange
-</code></pre>
+<pre class="mermaid"><code>flowchart TD
+    Client([Cliente]) --&gt; Nginx[Nginx :80]
+    Nginx --&gt; GW[Gateway Service]
+
+    GW --&gt;|/accounts/**| ACC[Account Service]
+    GW --&gt;|/auth/**| AUTH[Auth Service]
+    GW --&gt;|/products/**| PROD[Product Service]
+    GW --&gt;|/orders/**| ORD[Order Service]
+
+    AUTH --&gt; ACC
+    ORD --&gt; PROD
+    ORD --&gt; EXC[Exchange Service]
+
+    ACC --&gt; DB[(PostgreSQL)]
+    PROD --&gt; DB
+    ORD --&gt; DB
+    EXC --&gt; API([AwesomeAPI])</code></pre>
 <h2 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h2>
+<h3 id="nginx-load-balancer">Nginx (Load Balancer)<a class="headerlink" href="#nginx-load-balancer" title="Permanent link">&para;</a></h3>
+<p>Ponto de entrada único na porta 80. Distribui tráfego entre as réplicas do gateway. No Kubernetes, substituído por um <code>Service</code> do tipo <code>LoadBalancer</code> provisionado pelo EKS.</p>
 <h3 id="gateway-service">Gateway Service<a class="headerlink" href="#gateway-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pelo roteamento das requisições.</p>
+<p>Roteia requisições para os microsserviços internos. Valida JWT antes de encaminhar. Configurado via Spring Cloud Gateway com rotas declarativas.</p>
+<table>
+<thead>
+<tr>
+<th>Rota</th>
+<th>Destino</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/accounts/**</code></td>
+<td>account-service</td>
+</tr>
+<tr>
+<td><code>/auth/**</code></td>
+<td>auth-service</td>
+</tr>
+<tr>
+<td><code>/products/**</code></td>
+<td>product-service</td>
+</tr>
+</tbody>
+</table>
 <h3 id="auth-service">Auth Service<a class="headerlink" href="#auth-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pela autenticação dos usuários.</p>
+<p>Emite e valida tokens JWT. Depende do account-service para verificar credenciais do usuário.</p>
 <h3 id="account-service">Account Service<a class="headerlink" href="#account-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pelo gerenciamento de contas.</p>
+<p>Gerencia contas de usuário. Persistência em PostgreSQL com Flyway migrations no schema <code>accounts</code>.</p>
 <h3 id="product-service">Product Service<a class="headerlink" href="#product-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pelo gerenciamento de produtos.</p>
+<p>Gerencia o catálogo de produtos. Persistência em PostgreSQL com Flyway migrations no schema <code>products</code>. Expõe métricas Prometheus.</p>
 <h3 id="order-service">Order Service<a class="headerlink" href="#order-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pelo gerenciamento de pedidos.</p>
+<p>Orquestra criação de pedidos. Consulta product-service para dados do produto e exchange-service para conversão de moeda.</p>
 <h3 id="exchange-service">Exchange Service<a class="headerlink" href="#exchange-service" title="Permanent link">&para;</a></h3>
-<p>Responsável pela consulta de informações de câmbio.</p>
-<h2 id="banco-de-dados">Banco de Dados<a class="headerlink" href="#banco-de-dados" title="Permanent link">&para;</a></h2>
-<p>A persistência é realizada utilizando PostgreSQL.</p>
-<h2 id="containerizacao">Containerização<a class="headerlink" href="#containerizacao" title="Permanent link">&para;</a></h2>
-<p>Todos os serviços são executados em containers Docker.</p>
-<h2 id="orquestracao">Orquestração<a class="headerlink" href="#orquestracao" title="Permanent link">&para;</a></h2>
-<p>O gerenciamento dos containers é realizado através do Kubernetes executando no Amazon EKS.</p>
+<p>Fornece taxas de câmbio em tempo real consultando a AwesomeAPI externa. Implementado em Python/FastAPI.</p>
+<h2 id="fluxo-de-criacao-de-pedido">Fluxo de Criação de Pedido<a class="headerlink" href="#fluxo-de-criacao-de-pedido" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Cliente
+    participant GW as Gateway
+    participant O as Order
+    participant P as Product
+    participant E as Exchange
+
+    C-&gt;&gt;GW: POST /orders (JWT)
+    GW-&gt;&gt;GW: Valida JWT
+    GW-&gt;&gt;O: POST /orders
+    O-&gt;&gt;P: GET /products/{id}
+    P--&gt;&gt;O: ProductOut
+    O-&gt;&gt;E: GET /exchanges/USD/BRL
+    E--&gt;&gt;O: taxa de câmbio
+    O-&gt;&gt;O: calcula total
+    O--&gt;&gt;GW: 201 Created
+    GW--&gt;&gt;C: 201 Created</code></pre>
+<h2 id="infraestrutura">Infraestrutura<a class="headerlink" href="#infraestrutura" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ambiente</th>
+<th>Orquestrador</th>
+<th>Banco</th>
+<th>Registry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local</td>
+<td>Docker Compose</td>
+<td>PostgreSQL container</td>
+<td>Docker Hub</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td>AWS EKS (namespace <code>store</code>)</td>
+<td>PostgreSQL container / RDS</td>
+<td>Docker Hub</td>
+</tr>
+</tbody>
+</table>
 
 
 

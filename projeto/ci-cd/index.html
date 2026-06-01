@@ -721,17 +721,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objetivo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Objetivo
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ferramenta" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -743,93 +732,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline" class="md-nav__link">
+  <a href="#stages" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pipeline
+        Stages
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Pipeline">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-source-code-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Source Code Management
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-build" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Build
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-vulnerability-scan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Vulnerability Scan
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-build-docker-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Build Docker Image
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-push-docker-hub" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Push Docker Hub
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-deploy-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Deploy Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#beneficios" class="md-nav__link">
+  <a href="#orquestracao" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benefícios
+        Orquestração
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credenciais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciais
       
     </span>
   </a>
@@ -916,34 +855,6 @@
     
   
     PaaS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
   
 
     
@@ -1155,33 +1066,101 @@
 
 
 <h1 id="cicd">CI/CD<a class="headerlink" href="#cicd" title="Permanent link">&para;</a></h1>
-<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
-<p>Automatizar o processo de build, testes, publicação e deploy dos serviços.</p>
 <h2 id="ferramenta">Ferramenta<a class="headerlink" href="#ferramenta" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Jenkins</li>
-</ul>
-<h2 id="pipeline">Pipeline<a class="headerlink" href="#pipeline" title="Permanent link">&para;</a></h2>
-<p>Cada microsserviço executa as seguintes etapas:</p>
-<h3 id="1-source-code-management">1. Source Code Management<a class="headerlink" href="#1-source-code-management" title="Permanent link">&para;</a></h3>
-<p>Checkout do código fonte.</p>
-<h3 id="2-build">2. Build<a class="headerlink" href="#2-build" title="Permanent link">&para;</a></h3>
-<p>Compilação do projeto Maven.</p>
-<h3 id="3-vulnerability-scan">3. Vulnerability Scan<a class="headerlink" href="#3-vulnerability-scan" title="Permanent link">&para;</a></h3>
-<p>Análise de dependências utilizando OWASP Dependency Check.</p>
-<h3 id="4-build-docker-image">4. Build Docker Image<a class="headerlink" href="#4-build-docker-image" title="Permanent link">&para;</a></h3>
-<p>Construção da imagem Docker.</p>
-<h3 id="5-push-docker-hub">5. Push Docker Hub<a class="headerlink" href="#5-push-docker-hub" title="Permanent link">&para;</a></h3>
-<p>Publicação da imagem no Docker Hub.</p>
-<h3 id="6-deploy-kubernetes">6. Deploy Kubernetes<a class="headerlink" href="#6-deploy-kubernetes" title="Permanent link">&para;</a></h3>
-<p>Atualização automática do ambiente EKS.</p>
-<h2 id="beneficios">Benefícios<a class="headerlink" href="#beneficios" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Redução de erros manuais</li>
-<li>Padronização dos deploys</li>
-<li>Maior segurança</li>
-<li>Entrega contínua</li>
-</ul>
+<p>Jenkins — cada microsserviço possui seu próprio <code>Jenkinsfile</code> e existe um Jenkinsfile raiz em <code>api/Jenkinsfile</code> que orquestra todos os serviços.</p>
+<h2 id="stages">Stages<a class="headerlink" href="#stages" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Stage</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>SCM</strong></td>
+<td>Checkout do repositório (<code>checkout scm</code>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Dependencies</strong></td>
+<td>Build da biblioteca de contrato do serviço</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Build</strong></td>
+<td><code>mvn -B -DskipTests clean package</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Vulnerability Scan</strong></td>
+<td>OWASP Dependency Check — falha se CVSS ≥ 11</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Build &amp; Push Image</strong></td>
+<td>Imagem multi-plataforma (linux/arm64 + linux/amd64) publicada no Docker Hub</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Deploy to K8s</strong></td>
+<td><code>aws eks update-kubeconfig</code> + <code>kubectl apply</code> no cluster <code>eks-store2</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="orquestracao">Orquestração<a class="headerlink" href="#orquestracao" title="Permanent link">&para;</a></h2>
+<p>O <code>api/Jenkinsfile</code> raiz dispara todos os serviços em sequência:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>account-service → auth-service → gateway-service → product-service → order-service
+</code></pre></div>
+<h2 id="cluster">Cluster<a class="headerlink" href="#cluster" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variável</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AWS_REGION</code></td>
+<td><code>us-east-2</code></td>
+</tr>
+<tr>
+<td><code>EKS_CLUSTER</code></td>
+<td><code>eks-store2</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="credenciais">Credenciais<a class="headerlink" href="#credenciais" title="Permanent link">&para;</a></h2>
+<p>Todas as credenciais são gerenciadas pelo Jenkins (<code>withCredentials</code>) — nenhum valor sensível aparece no código:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dockerhub-credential</code></td>
+<td>Push de imagens</td>
+</tr>
+<tr>
+<td><code>db-credential</code></td>
+<td>Banco de dados (envsubst)</td>
+</tr>
+<tr>
+<td><code>aws-credentials</code></td>
+<td>Acesso ao EKS</td>
+</tr>
+<tr>
+<td><code>jwt-secret-key</code></td>
+<td>Chave JWT do auth-service</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -676,15 +676,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tecnologias-utilizadas" class="md-nav__link">
+  <a href="#tecnologias" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tecnologias Utilizadas
+        Tecnologias
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tecnologias Utilizadas">
+    <nav class="md-nav" aria-label="Tecnologias">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -709,28 +709,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#banco-de-dados" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Banco de Dados
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#devops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DevOps
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -741,6 +719,17 @@
     <span class="md-ellipsis">
       
         Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizacao-do-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organização do Repositório
       
     </span>
   </a>
@@ -883,34 +872,6 @@
     
   
     PaaS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
   
 
     
@@ -1123,53 +1084,135 @@
 
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
-<p>O projeto consiste no desenvolvimento de uma plataforma baseada em microsserviços utilizando práticas modernas de desenvolvimento, integração contínua e implantação em nuvem.</p>
-<p>A solução foi desenvolvida durante a disciplina PMA.261 com o objetivo de aplicar conceitos de:</p>
+<p>Plataforma de e-commerce baseada em microsserviços desenvolvida na disciplina PMA.261, aplicando conceitos de:</p>
 <ul>
-<li>Microsserviços</li>
-<li>Containers</li>
-<li>Kubernetes</li>
-<li>Integração Contínua (CI)</li>
-<li>Entrega Contínua (CD)</li>
-<li>Cloud Computing</li>
-<li>Observabilidade</li>
-<li>Segurança</li>
+<li>Microsserviços e contratos de API</li>
+<li>Containerização com Docker</li>
+<li>Orquestração com Kubernetes (AWS EKS)</li>
+<li>Integração Contínua e Entrega Contínua (Jenkins)</li>
+<li>Observabilidade (Prometheus + Grafana)</li>
+<li>Segurança (JWT, OWASP, envsubst)</li>
+<li>Cloud Computing (AWS)</li>
 </ul>
-<h2 id="tecnologias-utilizadas">Tecnologias Utilizadas<a class="headerlink" href="#tecnologias-utilizadas" title="Permanent link">&para;</a></h2>
+<h2 id="tecnologias">Tecnologias<a class="headerlink" href="#tecnologias" title="Permanent link">&para;</a></h2>
 <h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Java 21</li>
-<li>Spring Boot</li>
-<li>Spring Data JPA</li>
-<li>Spring Cloud OpenFeign</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Linguagem</th>
+<th>Framework</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account, account-service</td>
+<td>Java 25</td>
+<td>Spring Boot 4.x</td>
+</tr>
+<tr>
+<td>auth, auth-service</td>
+<td>Java 25</td>
+<td>Spring Boot 4.x</td>
+</tr>
+<tr>
+<td>gateway-service</td>
+<td>Java 25</td>
+<td>Spring Boot 4.x + Spring Cloud Gateway</td>
+</tr>
+<tr>
+<td>product, product-service</td>
+<td>Java 25</td>
+<td>Spring Boot 4.x</td>
+</tr>
+<tr>
+<td>order, order-service</td>
+<td>Java 21</td>
+<td>Spring Boot 3.x</td>
+</tr>
+<tr>
+<td>exchange, exchange-service</td>
+<td>Python 3</td>
+<td>FastAPI</td>
+</tr>
+</tbody>
+</table>
 <h3 id="infraestrutura">Infraestrutura<a class="headerlink" href="#infraestrutura" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Docker</li>
-<li>Docker Hub</li>
-<li>Kubernetes</li>
-<li>AWS EKS</li>
-</ul>
-<h3 id="banco-de-dados">Banco de Dados<a class="headerlink" href="#banco-de-dados" title="Permanent link">&para;</a></h3>
-<ul>
-<li>PostgreSQL</li>
-</ul>
-<h3 id="devops">DevOps<a class="headerlink" href="#devops" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Jenkins</li>
-<li>OWASP Dependency Check</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Tecnologia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Containers</td>
+<td>Docker + Docker Compose</td>
+</tr>
+<tr>
+<td>Orquestração</td>
+<td>Kubernetes (AWS EKS)</td>
+</tr>
+<tr>
+<td>Registry</td>
+<td>Docker Hub</td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>PostgreSQL (Flyway migrations)</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>Jenkins</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>OWASP Dependency Check</td>
+</tr>
+<tr>
+<td>Observabilidade</td>
+<td>Prometheus + Grafana</td>
+</tr>
+<tr>
+<td>Load Balancing</td>
+<td>Nginx (compose) + ALB (EKS)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="arquitetura">Arquitetura<a class="headerlink" href="#arquitetura" title="Permanent link">&para;</a></h2>
-<p>A aplicação foi dividida em serviços independentes responsáveis por domínios específicos do negócio.</p>
-<ul>
-<li>Account Service</li>
-<li>Auth Service</li>
-<li>Gateway Service</li>
-<li>Product Service</li>
-<li>Order Service</li>
-<li>Exchange Service</li>
-</ul>
-<p>Cada serviço possui seu próprio ciclo de build, deploy e monitoramento.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Internet
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>   │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   ▼
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> Nginx (porta 80)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   ▼
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Gateway Service ──── JWT validation
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>   │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>   ├──► Account Service ──► PostgreSQL
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>   ├──► Auth Service    ──► Account Service
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>   ├──► Product Service ──► PostgreSQL
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>   └──► Order Service   ──► Product Service
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                        └──► Exchange Service ──► API Externa
+</code></pre></div>
+<h2 id="organizacao-do-repositorio">Organização do Repositório<a class="headerlink" href="#organizacao-do-repositorio" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>api/
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── account/          # biblioteca de contrato
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── account-service/  # microsserviço
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── auth/
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── auth-service/
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── exchange/
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── exchange-service/
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>├── gateway-service/
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>├── order/
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├── order-service/
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>├── product/
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>├── product-service/
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>├── postgres-service/ # manifests k8s do banco
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>├── setup/            # prometheus, grafana, nginx configs
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>├── compose.yaml
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>└── Jenkinsfile       # pipeline raiz
+</code></pre></div>
 
 
 

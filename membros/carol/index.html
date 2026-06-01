@@ -770,34 +770,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projeto/apresentacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Apresentação
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../projeto/video/" class="md-nav__link">
         
   
@@ -1008,6 +980,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bottlenecks Implementados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#observabilidade-prometheus-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observabilidade (Prometheus + Grafana)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vulnerability-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vulnerability Scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credenciais-seguras-envsubst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credenciais Seguras (envsubst)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-manifests-completos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes Manifests Completos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rota-do-product-no-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rota do Product no Gateway
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1074,16 +1107,27 @@
 <h1 id="carol">Carol<a class="headerlink" href="#carol" title="Permanent link">&para;</a></h1>
 <h2 id="responsabilidades">Responsabilidades<a class="headerlink" href="#responsabilidades" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Product API</li>
-<li>Product Service</li>
+<li>Product API e Product Service</li>
+<li>Configuração de CI/CD (Jenkinsfiles de account-service, auth-service, gateway-service, product-service)</li>
+<li>Kubernetes manifests (account-service, auth-service, gateway-service, product-service, postgres-service)</li>
+<li>Infraestrutura: submodules, .gitmodules, namespace k8s</li>
 </ul>
 <h2 id="repositorios">Repositórios<a class="headerlink" href="#repositorios" title="Permanent link">&para;</a></h2>
 <ul>
-<li>product</li>
-<li>product-service</li>
+<li><a href="https://github.com/pma2026-carol-fernando-thais/product">product</a></li>
+<li><a href="https://github.com/pma2026-carol-fernando-thais/product-service">product-service</a></li>
 </ul>
 <h2 id="bottlenecks-implementados">Bottlenecks Implementados<a class="headerlink" href="#bottlenecks-implementados" title="Permanent link">&para;</a></h2>
-<p>(Preencher com os bottlenecks implementados pela Carol)</p>
+<h3 id="observabilidade-prometheus-grafana">Observabilidade (Prometheus + Grafana)<a class="headerlink" href="#observabilidade-prometheus-grafana" title="Permanent link">&para;</a></h3>
+<p>Integração de Micrometer + Prometheus no <code>product-service</code> e <code>gateway-service</code>. Métricas expostas em <code>/product/actuator/prometheus</code> e coletadas pelo Prometheus configurado no <code>compose.yaml</code>.</p>
+<h3 id="vulnerability-scan">Vulnerability Scan<a class="headerlink" href="#vulnerability-scan" title="Permanent link">&para;</a></h3>
+<p>Stage OWASP Dependency Check adicionado em todos os Jenkinsfiles (<code>account-service</code>, <code>auth-service</code>, <code>gateway-service</code>, <code>product-service</code>). Falha o build se CVSS ≥ 11.</p>
+<h3 id="credenciais-seguras-envsubst">Credenciais Seguras (envsubst)<a class="headerlink" href="#credenciais-seguras-envsubst" title="Permanent link">&para;</a></h3>
+<p>Substituição de credenciais via <code>envsubst</code> nos manifests Kubernetes — senhas nunca ficam hardcoded no repositório.</p>
+<h3 id="kubernetes-manifests-completos">Kubernetes Manifests Completos<a class="headerlink" href="#kubernetes-manifests-completos" title="Permanent link">&para;</a></h3>
+<p>Criação dos manifests <code>k8s/k8s.yaml</code> para <code>account-service</code>, <code>auth-service</code>, <code>gateway-service</code> e <code>product-service</code>, todos no namespace <code>store</code> com Secret, ConfigMap, Deployment e Service.</p>
+<h3 id="rota-do-product-no-gateway">Rota do Product no Gateway<a class="headerlink" href="#rota-do-product-no-gateway" title="Permanent link">&para;</a></h3>
+<p>Adição da rota <code>/products/**</code> no <code>gateway-service</code>, tornando o product-service acessível pelo fluxo completo: <code>nginx → gateway → product-service</code>.</p>
 
 
 
