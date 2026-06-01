@@ -2,53 +2,77 @@
 
 ## Objetivo
 
-O projeto consiste no desenvolvimento de uma plataforma baseada em microsserviços utilizando práticas modernas de desenvolvimento, integração contínua e implantação em nuvem.
+Plataforma de e-commerce baseada em microsserviços desenvolvida na disciplina PMA.261, aplicando conceitos de:
 
-A solução foi desenvolvida durante a disciplina PMA.261 com o objetivo de aplicar conceitos de:
+- Microsserviços e contratos de API
+- Containerização com Docker
+- Orquestração com Kubernetes (AWS EKS)
+- Integração Contínua e Entrega Contínua (Jenkins)
+- Observabilidade (Prometheus + Grafana)
+- Segurança (JWT, OWASP, envsubst)
+- Cloud Computing (AWS)
 
-- Microsserviços
-- Containers
-- Kubernetes
-- Integração Contínua (CI)
-- Entrega Contínua (CD)
-- Cloud Computing
-- Observabilidade
-- Segurança
-
-## Tecnologias Utilizadas
+## Tecnologias
 
 ### Backend
 
-- Java 21
-- Spring Boot
-- Spring Data JPA
-- Spring Cloud OpenFeign
+| Serviço | Linguagem | Framework |
+|---|---|---|
+| account, account-service | Java 25 | Spring Boot 4.x |
+| auth, auth-service | Java 25 | Spring Boot 4.x |
+| gateway-service | Java 25 | Spring Boot 4.x + Spring Cloud Gateway |
+| product, product-service | Java 25 | Spring Boot 4.x |
+| order, order-service | Java 21 | Spring Boot 3.x |
+| exchange, exchange-service | Python 3 | FastAPI |
 
 ### Infraestrutura
 
-- Docker
-- Docker Hub
-- Kubernetes
-- AWS EKS
-
-### Banco de Dados
-
-- PostgreSQL
-
-### DevOps
-
-- Jenkins
-- OWASP Dependency Check
+| Componente | Tecnologia |
+|---|---|
+| Containers | Docker + Docker Compose |
+| Orquestração | Kubernetes (AWS EKS) |
+| Registry | Docker Hub |
+| Banco de dados | PostgreSQL (Flyway migrations) |
+| CI/CD | Jenkins |
+| Segurança | OWASP Dependency Check |
+| Observabilidade | Prometheus + Grafana |
+| Load Balancing | Nginx (compose) + ALB (EKS) |
 
 ## Arquitetura
 
-A aplicação foi dividida em serviços independentes responsáveis por domínios específicos do negócio.
+```
+Internet
+   │
+   ▼
+ Nginx (porta 80)
+   │
+   ▼
+Gateway Service ──── JWT validation
+   │
+   ├──► Account Service ──► PostgreSQL
+   ├──► Auth Service    ──► Account Service
+   ├──► Product Service ──► PostgreSQL
+   └──► Order Service   ──► Product Service
+                        └──► Exchange Service ──► API Externa
+```
 
-- Account Service
-- Auth Service
-- Gateway Service
-- Product Service
-- Order Service
-- Exchange Service
+## Organização do Repositório
 
-Cada serviço possui seu próprio ciclo de build, deploy e monitoramento.
+```
+api/
+├── account/          # biblioteca de contrato
+├── account-service/  # microsserviço
+├── auth/
+├── auth-service/
+├── exchange/
+├── exchange-service/
+├── gateway-service/
+├── order/
+├── order-service/
+├── product/
+├── product-service/
+├── postgres-service/ # manifests k8s do banco
+├── setup/            # prometheus, grafana, nginx configs
+├── compose.yaml
+└── Jenkinsfile       # pipeline raiz
+```

@@ -2,26 +2,54 @@
 
 ## Objetivo
 
-Automatizar o processo de integração contínua e entrega contínua (CI/CD).
+Automatizar build, scan de vulnerabilidades, publicação e deploy de todos os microsserviços no cluster EKS.
 
-## Pipeline Implementada
+## Pipeline por Serviço
 
-Cada serviço possui pipeline responsável por:
+Cada microsserviço possui seu próprio `Jenkinsfile` com os seguintes stages:
 
-1. Checkout do código
-2. Build Maven
-3. Vulnerability Scan
-4. Build da imagem Docker
-5. Push para Docker Hub
-6. Deploy no Kubernetes
+| # | Stage | O que faz |
+|---|---|---|
+| 1 | **SCM** | Checkout do código (`checkout scm`) |
+| 2 | **Dependencies** | Compila a biblioteca de contrato do serviço |
+| 3 | **Build** | Empacota o JAR (`mvn -B -DskipTests clean package`) |
+| 4 | **Vulnerability Scan** | OWASP Dependency Check — falha se CVSS ≥ 11 |
+| 5 | **Build & Push Image** | Imagem multi-plataforma (arm64/amd64) publicada no Docker Hub |
+| 6 | **Deploy to K8s** | Aplica manifesto k8s no EKS via `kubectl apply` |
 
-## Ferramentas Utilizadas
+## Jenkinsfile Raiz
 
-- Jenkins
-- Docker
-- Docker Hub
-- AWS EKS
+O arquivo `api/Jenkinsfile` orquestra todos os serviços em sequência:
 
-## Evidências
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('account-service') { steps { build job: 'account-service', wait: true } }
+        stage('auth-service')    { steps { build job: 'auth-service',    wait: true } }
+        stage('gateway-service') { steps { build job: 'gateway-service', wait: true } }
+        stage('product-service') { steps { build job: 'product-service', wait: true } }
+        stage('order-service')   { steps { build job: 'order-service',   wait: true } }
+    }
+}
+```
 
-Adicionar screenshots dos pipelines executando.
+## Configuração AWS
+
+| Variável | Valor |
+|---|---|
+| `AWS_REGION` | `us-east-2` |
+| `EKS_CLUSTER` | `eks-store2` |
+
+## Credenciais Jenkins
+
+| ID | Tipo | Uso |
+|---|---|---|
+| `dockerhub-credential` | Username/Password | Login no Docker Hub |
+| `db-credential` | Username/Password | `DB_USER` / `DB_PASSWORD` via envsubst |
+| `aws-credentials` | AWS Credentials | Acesso ao EKS |
+| `jwt-secret-key` | Secret Text | `JWT_SECRET_KEY` para auth-service |
+
+## Segurança
+
+Nenhum valor sensível está no código. Credenciais são injetadas via `withCredentials` e substituídas nos manifests via `envsubst` antes do `kubectl apply`.

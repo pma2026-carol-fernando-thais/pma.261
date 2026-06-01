@@ -1,30 +1,32 @@
 # Bottlenecks
 
-## 1. Kubernetes Health Checks
+## 1. Observabilidade
 
 ### Problema
 
-Os endpoints:
-
-- /actuator/health/liveness
-- /actuator/health/readiness
-
-estavam configurados no Kubernetes, porém o Spring Boot Actuator não estava presente no projeto.
+Sem monitoramento, é impossível identificar gargalos de performance, erros silenciosos e uso de recursos em produção.
 
 ### Impacto
 
-Os pods poderiam entrar em loop de reinicialização.
+Incidentes detectados apenas pelo usuário final; ausência de dados para tomada de decisão.
 
 ### Solução
 
-Foi adicionada a dependência:
+Integração de **Prometheus + Grafana** via Micrometer:
 
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+    <scope>runtime</scope>
+</dependency>
 ```
+
+Métricas expostas em `/product/actuator/prometheus` e `/gateway/actuator/prometheus`, coletadas pelo Prometheus e visualizadas no Grafana.
 
 ---
 
@@ -40,7 +42,7 @@ Bibliotecas vulneráveis poderiam ser enviadas para produção.
 
 ### Solução
 
-Foi adicionada a etapa:
+Stage adicionado em todos os Jenkinsfiles:
 
 ```groovy
 stage('Vulnerability Scan') {
@@ -52,35 +54,27 @@ stage('Vulnerability Scan') {
 
 ---
 
-## 3. Dependências de Build
+## 3. Kubernetes Health Checks
 
 ### Problema
 
-O serviço order-service dependia dos módulos:
-
-- order
-- product
-
-Porém apenas o módulo order era compilado.
+Os endpoints `/actuator/health/liveness` e `/actuator/health/readiness` estavam configurados no Kubernetes, porém o Spring Boot Actuator não estava presente.
 
 ### Impacto
 
-Falha de build em ambientes limpos.
+Os pods poderiam entrar em loop de reinicialização.
 
 ### Solução
 
-```groovy
-build job: 'order', wait: true
-build job: 'product', wait: true
-```
+Adição da dependência `spring-boot-starter-actuator` e configuração dos probes no Deployment.
 
 ---
 
-## 4. Credenciais Hardcoded
+## 4. Credenciais Expostas
 
 ### Problema
 
-As credenciais do banco estavam fixas no Kubernetes.
+Credenciais do banco hardcoded nos manifests Kubernetes:
 
 ```yaml
 DB_USER: postgres
@@ -89,13 +83,61 @@ DB_PASSWORD: postgres
 
 ### Impacto
 
-Baixa segurança e manutenção difícil.
+Baixa segurança — senha visível no repositório e difícil de rotacionar.
 
 ### Solução
 
-Utilização de Jenkins Credentials e envsubst.
+Utilização de Jenkins Credentials + `envsubst` para injeção em runtime:
 
 ```yaml
-DB_USER: ${DB_USER}
-DB_PASSWORD: ${DB_PASSWORD}
+stringData:
+  DATABASE_USERNAME: ${DB_USER}
+  DATABASE_PASSWORD: ${DB_PASSWORD}
+```
+
+---
+
+## 5. Caching
+
+### Problema
+
+O `exchange-service` consulta uma API externa (`awesomeapi.com.br`) a cada requisição de câmbio, introduzindo latência (~300ms) e risco de indisponibilidade por rate limit.
+
+### Impacto
+
+Cada pedido criado pelo `order-service` dispara uma chamada externa desnecessária para a mesma taxa de câmbio.
+
+### Solução
+
+Implementar **Redis** no `exchange-service` com TTL de 60 segundos por par de moedas:
+
+```python
+cache_key = f"rate:{source}:{target}"
+cached = redis_client.get(cache_key)
+if cached:
+    return ProviderRate(**json.loads(cached))
+# ... busca externa ...
+redis_client.setex(cache_key, 60, json.dumps({...}))
+```
+
+---
+
+## 6. Load Balancing e Escalabilidade
+
+### Problema
+
+Picos de tráfego sobrecarregam instâncias fixas do gateway.
+
+### Impacto
+
+Latência alta e possível indisponibilidade em momentos de pico.
+
+### Solução
+
+- **Nginx** como load balancer no ambiente Docker Compose
+- **Service tipo LoadBalancer** no Kubernetes (EKS provisiona ALB)
+- **HPA** no gateway: escala de 1 a 10 réplicas quando CPU > 50%
+
+```bash
+kubectl apply -f api/gateway-service/k8s/hpa.yaml
 ```
