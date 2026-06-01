@@ -2,7 +2,7 @@
 
 ## Link do Vídeo
 
-Adicionar o link do vídeo de apresentação após a gravação.
+https://youtu.be/8_knS9N9Sg4
 
 ## Duração
 
